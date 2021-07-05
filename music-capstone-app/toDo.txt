@@ -1,0 +1,5 @@
+Add Create function to create a list
+Edit function
+Destroy function
+Boostrap implementation
+link to backend
