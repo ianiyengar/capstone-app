@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <h1>All Top Ten Lists</h1>
     <div v-for="topten in toptens" v-bind:key="topten.id">
       <h2>{{ topten.name }}</h2>
       <img v-bind:src="topten.url" v-bind:alt="topten.name" />
