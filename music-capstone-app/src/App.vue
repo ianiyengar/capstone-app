@@ -26,11 +26,9 @@
       |
       <router-link to="/logout">Logout</router-link>
       |
-      <router-link to="/listsindex">All Lists</router-link>
+      <router-link to="/users/top_ten">Your Top Ten Albums</router-link>
       |
-      <router-link to="/lists/new">New Album List</router-link>
-      |
-      <router-link to="/lists/:id/edit">Album List Edit</router-link>
+      <router-link to="/top_tens">New Album List</router-link>
     </div>
     <div class="container">
       <div v-if="flashMessage" class="alert alert-success" role="alert">{{ flashMessage }}</div>
