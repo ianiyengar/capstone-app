@@ -3,22 +3,15 @@
     <h1>New Top 10 List</h1>
     <div v-for="album in topAlbums" v-bind:key="album.id">
       Album {{ album.id }}:
-      <input type="text" v-model="album.albumId" />
-      <select v-model="selected">
-        <option v-for="option in options" v-bind:key="option.value">
-          {{ option.text }}
+      <select v-model="album.albumId">
+        <option v-for="album in albums" v-bind:key="album.id" v-bind:value="album.id">
+          {{ album.name }}
         </option>
       </select>
-      <span>Selected: {{ selected }}</span>
+      <span>Selected: {{ album.albumId }}</span>
     </div>
 
     <button v-on:click="createList()">Create List</button>
-
-    <div v-for="topten in toptens" v-bind:key="topten.id">
-      <h2>{{ topten.name }}</h2>
-      <img v-bind:src="topten.url" v-bind:alt="topten.name" />
-      <p>album: {{ topten.album }}</p>
-    </div>
   </div>
 </template>
 
@@ -42,13 +35,13 @@ export default {
         { id: 10, albumId: null },
       ],
 
+      albums: [],
       toptens: [],
       newList: {},
     };
   },
   created: function () {
-    // Get all albums from backend
-    this.indexToptens();
+    this.indexAlbums();
   },
   methods: {
     indexToptens: function () {
@@ -57,23 +50,28 @@ export default {
         this.toptens = response.data;
       });
     },
+    indexAlbums: function () {
+      axios.get("/albums").then((response) => {
+        console.log("albums index", response);
+        this.albums = response.data;
+      });
+    },
     createList: function () {
       this.topAlbums.forEach((album) => {
         console.log(album.albumId);
         var params = {
-          album: this.albumId.name,
+          album_id: album.albumId,
         };
         axios
-          .post("/toptens", params)
+          .post("/top_tens", params)
           .then((response) => {
-            console.log("toptens create", response);
+            console.log("top_tens create", response);
             this.toptens.push(response.data);
             this.newTopten = {};
           })
           .catch((error) => {
             console.log("lists create error", error.response);
           });
-        // Make web request to post/toptens w/ params for album id
       });
       // var params = {
       //   name: this.newList.name,

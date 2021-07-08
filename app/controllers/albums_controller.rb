@@ -10,4 +10,9 @@ class AlbumsController < ApplicationController
       render json: { errors: album.errors.full_messages }, status: :bad_request
     end
   end
+
+  def index
+    albums = Album.all
+    render json: albums
+  end
 end

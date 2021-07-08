@@ -1,8 +1,7 @@
-Add Create function to create a list
-Edit function
-Destroy function
-Boostrap implementation
-link to backend
+After creating a list, users should be able to go see their list
+Area for people to make a new list
+Implement Spotify API 
+
 
 
 

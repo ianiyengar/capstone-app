@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post "/top_tens" => "top_tens#create"
   get "/users/topten" => "users#index"
   get "/users/topten:id" => "topten#show"
+  get "/albums" => "albums#index"
 end
