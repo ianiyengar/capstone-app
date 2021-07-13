@@ -42,7 +42,16 @@ export default {
   },
   created: function () {
     this.indexAlbums();
+    var spotifyCode = this.$route.query.code;
+    console.log("The Spotify code is", spotifyCode);
+    if (spotifyCode) {
+      var params = { code: spotifyCode };
+      axios.post("http://localhost:3000/spotify_authorize", params).then((response) => {
+        console.log("Spotify access token", response.data);
+      });
+    }
   },
+
   methods: {
     indexToptens: function () {
       axios.get("/toptens").then((response) => {
