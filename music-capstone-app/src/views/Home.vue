@@ -8,37 +8,46 @@
         Authorize Spotify
       </a>
     </div>-->
-    <div v-if="spotifyAccessToken">
+    <div class="jumbotron" v-if="spotifyAccessToken">
       Search for Album:
       <input type="text" v-model="albumSearch" />
       <button v-on:click="searchSpotifyAlbums">Submit</button>
-
-      <div v-for="searched_album in searched_albums" v-bind:key="searched_album.id">
-        <h2>{{ searched_album.name }}</h2>
-        <button v-on:click="createPick()">Add to Top Ten List</button>
-        {{ searched_album.name }}
-        <br />
-        <br />
-        <!-- <div v-for="image in searched_album.images" v-bind:key="image.url">
+      <div class="row">
+        <div class="col-3" v-for="searched_album in searched_albums" v-bind:key="searched_album.id">
+          <h2>{{ searched_album.name }}</h2>
+          <button v-on:click="createPick()">Add to Top Ten List</button>
+          {{ searched_album.name }}
+          <br />
+          <br />
+          <!-- <div v-for="image in searched_album.images" v-bind:key="image.url">
           <img v-bind:src="image.url" alt="" />
         </div> -->
-        <img width="200px" v-if="searched_album.images.length > 0" v-bind:src="searched_album.images[0].url" alt="" />
+          <img width="200px" v-if="searched_album.images.length > 0" v-bind:src="searched_album.images[0].url" alt="" />
+        </div>
       </div>
     </div>
     <h3>New Top 10 List</h3>
-    <div v-for="album in topAlbums" v-bind:key="album.id">
-      Album {{ album.id }}:
-      <select v-model="album.albumId">
-        <option v-for="album in albums" v-bind:key="album.id" v-bind:value="album.id">
-          {{ album.name }}
-        </option>
-      </select>
-      <span>Selected: {{ album.albumId }}</span>
+    <div class="row">
+      <div class="col-8">
+        <div class="form-group" v-for="album in topAlbums" v-bind:key="album.id">
+          Album {{ album.id }}:
+          <select class="form-control" v-model="album.albumId">
+            <option v-for="album in albums" v-bind:key="album.id" v-bind:value="album.id">
+              {{ album.name }}
+            </option>
+          </select>
+          <span>Selected: {{ album.albumId }}</span>
+        </div>
+        <button class="btn btn-primary" v-on:click="createList()">Create List</button>
+      </div>
+      <div class="col-4">
+        <button class="btn btn-primary" v-on:click="randomAlbum()">Give Me New Music!</button>
+        <div>
+          {{ random_album.name }}
+        </div>
+        <img width="200px" v-bind:src="random_album.cover_art_url" alt="" />
+      </div>
     </div>
-
-    <button v-on:click="createList()">Create List</button>
-    <button v-on:click="randomAlbum()">Give Me New Music!</button>
-    {{ random_album.name }}
   </div>
 </template>
 
