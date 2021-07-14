@@ -3,8 +3,16 @@
     <h1>All Top Tens</h1>
     <div v-for="user in users" v-bind:key="user.id">
       <h2>{{ user.name }}</h2>
-      <div v-for="album in user.albums" v-bind:key="album.id">
-        {{ album }}
+      <div class="row">
+        <div class="col-3" v-for="album in user.albums" v-bind:key="album.id">
+          {{ album.name }}
+
+          <!-- <div v-for="cover_art_url in albums.cover_art_url" v-bind:key="album.cover_art_url">
+          <img v-bind:src="cover_art_url.url" alt="" />
+          {{ cover_art_url }}
+        </div> -->
+          <img width="200px" v-bind:src="album.cover_art_url" alt="" />
+        </div>
       </div>
     </div>
   </div>

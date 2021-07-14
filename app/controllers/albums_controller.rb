@@ -16,6 +16,11 @@ class AlbumsController < ApplicationController
     render json: albums
   end
 
+  # def random
+  #   random_album = albums.sample
+  #   render json: album
+  # end
+
   def spotify_authorize
     response = HTTP.post(
       "https://accounts.spotify.com/api/token",
@@ -27,6 +32,20 @@ class AlbumsController < ApplicationController
         client_secret: "9e7515a9678b496c9910669bd9b7c4a9",
       },
     )
+    render json: JSON.parse(response.body)
+  end
+
+  def spotify_user_info
+    response = HTTP
+      .headers("Authorization" => "Bearer #{params[:spotify_access_token]}")
+      .get("https://api.spotify.com/v1/me")
+    render json: JSON.parse(response.body)
+  end
+
+  def spotify_search
+    response = HTTP
+      .headers("Authorization" => "Bearer #{params[:spotify_access_token]}")
+      .get("https://api.spotify.com/v1/search?q=#{params[:search]}&type=album")
     render json: JSON.parse(response.body)
   end
 end
