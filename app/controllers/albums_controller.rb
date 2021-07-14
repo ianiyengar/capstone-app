@@ -16,10 +16,10 @@ class AlbumsController < ApplicationController
     render json: albums
   end
 
-  # def random
-  #   random_album = albums.sample
-  #   render json: album
-  # end
+  def random
+    random_album = Album.all.sample
+    render json: random_album
+  end
 
   def spotify_authorize
     response = HTTP.post(

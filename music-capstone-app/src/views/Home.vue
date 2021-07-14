@@ -16,7 +16,7 @@
       <div v-for="searched_album in searched_albums" v-bind:key="searched_album.id">
         <h2>{{ searched_album.name }}</h2>
         <button v-on:click="createPick()">Add to Top Ten List</button>
-        {{ searched_album }}
+        {{ searched_album.name }}
         <br />
         <br />
         <!-- <div v-for="image in searched_album.images" v-bind:key="image.url">
@@ -38,6 +38,7 @@
 
     <button v-on:click="createList()">Create List</button>
     <button v-on:click="randomAlbum()">Give Me New Music!</button>
+    {{ random_album.name }}
   </div>
 </template>
 
@@ -67,6 +68,7 @@ export default {
       spotifyAccessToken: null,
       albumSearch: "",
       searched_albums: [],
+      random_album: "",
     };
   },
   created: function () {
@@ -109,15 +111,15 @@ export default {
         this.toptens = response.data;
       });
     },
-    // randomAlbum: function () {
-    //   axios.get("/random_album").then((response) => {
-    //     console.log("album choice", response);
-    //     this.album = response.data;
-    //   });
-    // },
     randomAlbum: function () {
-      console.log("Listen to This!");
+      axios.get("/random_album").then((response) => {
+        console.log("album choice", response);
+        this.random_album = response.data;
+      });
     },
+    // randomAlbum: function () {
+    //   console.log("Listen to This!");
+    // },
 
     indexAlbums: function () {
       axios.get("/albums").then((response) => {
